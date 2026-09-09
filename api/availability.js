@@ -136,10 +136,11 @@ async function getActiveDeals(webhook) {
   return deals;
 }
 
+// Используем специальный метод для получения товарных позиций сделки
 async function getDealProductRows(webhook, dealId) {
   try {
-    const data = await bitrixCall(webhook, 'crm.productrow.list', {
-      filter: { '=OWNER_TYPE': 'D', '=OWNER_ID': Number(dealId) }
+    const data = await bitrixCall(webhook, 'crm.deal.productrows.get', {
+      id: Number(dealId)
     });
     return data.result || [];
   } catch (e) {
